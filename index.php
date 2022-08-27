@@ -35,6 +35,7 @@
                     <li class="nav-item"><a href="paginas/pesquisa.php" class="nav-link"><i class="bi bi-search"></i>Pesquisa</a></li>
                     <li class="nav-item"><a href="paginas/atualizacao.php" class="nav-link"><i class="bi bi-arrow-clockwise"></i>Atualização</a></li>
                     <li class="nav-item"><a href="paginas/exclusao.php" class="nav-link"><i class="bi bi-trash"></i>Exclusão</a></li>
+                    <li class="nav-item"><a href="paginas/relatorio.php" class="nav-link"><i class="bi bi-file-earmark"></i>Relatório</a></li>
                 </ul>
             </div>
         </div>
