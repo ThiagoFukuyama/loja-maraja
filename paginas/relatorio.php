@@ -40,7 +40,7 @@
 		$dompdf->render();
 		
 		$dompdf->stream(
-			"relatorio.php",
+			"Relatório - Loja Marajá",
 			array(
 				"Attachment" => false
 			)
