@@ -3,16 +3,22 @@
     require_once "../assets/include/conexao.php";
 
     if ($_POST) {
+		
+		$stmt = mysqli_stmt_init($conexao);
+		
         $nome = $_POST["nome"];
         $quantidade = $_POST["quantidade"];
         $preco_custo = $_POST["preco_custo"];
         $preco_venda = $_POST["preco_venda"];
         $descricao = $_POST["descricao"];
 
-        $sql = "INSERT INTO produtos VALUES 
-            (NULL, '$nome', '$quantidade', '$preco_custo', '$preco_venda', '$descricao')";
+        $sql = "INSERT INTO produtos VALUES (NULL, ?, ?, ?, ?, ?)";
+				
+		mysqli_stmt_prepare($stmt, $sql);
+		
+		mysqli_stmt_bind_param($stmt, "sssss", $nome, $quantidade, $preco_custo, $preco_venda, $descricao);
 
-        $result = mysqli_query($conexao, $sql);
+        $result = mysqli_stmt_execute($stmt);
 
         if ($result) {
             $msg = "<div class='alert alert-success'>

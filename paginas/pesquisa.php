@@ -1,16 +1,32 @@
 
 <?php
+
 	require_once "../assets/include/conexao.php";
 	
+	$stmt = mysqli_stmt_init($conexao);
+	
 	if ($_POST) {
-		$nome = $_POST["nome"];
 		
-		$sql = "SELECT * FROM produtos WHERE nome LIKE '%$nome%'";
+		$nome = "%" . $_POST["nome"] . "%";
+		
+		$sql = "SELECT * FROM produtos WHERE nome LIKE ?";
+		
+		mysqli_stmt_prepare($stmt, $sql);
+		
+		mysqli_stmt_bind_param($stmt, "s", $nome);
+		
 	} else {
+		
 		$sql = "SELECT * FROM produtos";	
+		
+		mysqli_stmt_prepare($stmt, $sql);
+		
 	}
 	
-	$result = mysqli_query($conexao, $sql);
+	mysqli_stmt_execute($stmt);
+		
+	mysqli_stmt_bind_result($stmt, $cod_produto, $nome_produto, $quantidade, $preco_custo, $preco_venda, $descricao);
+	
 ?>
 
 
@@ -73,16 +89,16 @@
 				<tbody>
 				
 					<?php
-						while ($linha = mysqli_fetch_array($result)) {
+						while (mysqli_stmt_fetch($stmt)) {
 					?>
 				
 					<tr>
-						<td><?php echo $linha["cod_produto"] ?></td>
-						<td><?php echo $linha["nome"] ?></td>
-						<td><?php echo $linha["quantidade"] ?></td>
-						<td>R$ <?php echo $linha["preco_custo"] ?></td>
-						<td>R$ <?php echo $linha["preco_venda"] ?></td>
-						<td><?php echo $linha["descricao"] ?></td>
+						<td><?php echo $cod_produto ?></td>
+						<td><?php echo $nome_produto ?></td>
+						<td><?php echo $quantidade ?></td>
+						<td>R$ <?php echo $preco_custo ?></td>
+						<td>R$ <?php echo $preco_venda ?></td>
+						<td><?php echo $descricao ?></td>
 					</tr>
 					
 					<?php } ?>

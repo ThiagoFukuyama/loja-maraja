@@ -1,6 +1,7 @@
 ﻿<?php
 
     require_once "../assets/include/conexao.php";
+	require_once "../assets/lib/dompdf/autoload.inc.php";
 
     $html = "<table cellpadding='3' style='font-family: sans-serif'>
 				<thead>
@@ -30,8 +31,6 @@
 		
 		
 		use Dompdf\Dompdf;
-			
-		require_once "../assets/lib/dompdf/autoload.inc.php";
 		
 		$dompdf = new DOMPDF();
 		

@@ -12,16 +12,22 @@
             $descricao = $_POST["descricao"];
 
             $sql = "UPDATE produtos SET
-                    nome='$nome',
-                    quantidade='$quantidade',
-                    preco_custo='$preco_custo',
-                    preco_venda='$preco_venda',
-                    descricao='$descricao' 
-                    WHERE cod_produto = '$codigo'";
+                    nome=?,
+                    quantidade=?,
+                    preco_custo=?,
+                    preco_venda=?,
+                    descricao=? 
+                    WHERE cod_produto = ?";
+					
+			$stmt = mysqli_stmt_init($conexao);
+			
+			mysqli_stmt_prepare($stmt, $sql);
+			
+			mysqli_stmt_bind_param($stmt, "siddsi", $nome, $quantidade, $preco_custo, $preco_venda, $descricao, $codigo);
 
-            $result = mysqli_query($conexao, $sql);
+            $update = mysqli_stmt_execute($stmt);
 
-            if ($result) {
+            if ($update) {
 
                 $status = "success";
                 $conteudo = "Produto alterado com sucesso. <a class='fs-5' href='atualizacao.php'>Voltar</a>";
@@ -79,19 +85,29 @@
             <?php
 
                 if (isset($_POST["codigo"]) && empty($_POST["nome"])) {
+					
                     $msg = "";
+					$codigo = $_POST["codigo"];
+					
+					$stmt = mysqli_stmt_init($conexao);
 
-                    $codigo = $_POST["codigo"];
+                    $select = "SELECT * FROM produtos WHERE cod_produto = ?";
+					
+					mysqli_stmt_prepare($stmt, $select);
+					
+					mysqli_stmt_bind_param($stmt, "s", $codigo);
 
-                    $sql = "SELECT * FROM produtos WHERE cod_produto = '$codigo'";
-
-                    $result = mysqli_query($conexao, $sql);
-
-                    $num_rows = mysqli_num_rows($result); 
+                    $result = mysqli_stmt_execute($stmt);
+					
+					mysqli_stmt_store_result($stmt);
+		
+					$num_rows = mysqli_stmt_num_rows($stmt);
 
                     if ($num_rows > 0) {
+						
+						mysqli_stmt_bind_result($stmt, $cod_produto, $nome_produto, $quantidade, $preco_custo, $preco_venda, $descricao);
 
-                        while ($linha = mysqli_fetch_array($result)) { 
+                        while (mysqli_stmt_fetch($stmt)) { 
 
             ?>
 
@@ -104,7 +120,7 @@
                                 <div class="form-group">
                                     <label class="w-100">
                                         <p class="m-0 mb-2">Código</p>
-                                        <input type="text" name="codigo" class="form-control" readonly value="<?php echo $linha["cod_produto"];  ?>">
+                                        <input type="text" name="codigo" class="form-control" readonly value="<?php echo $cod_produto ?>">
                                     </label>
                                 </div>
                             </div>
@@ -112,7 +128,7 @@
                                 <div class="form-group">
                                     <label class="w-100">
                                         <p class="m-0 mb-2">Nome</p>
-                                        <input type="text" name="nome" class="form-control" placeholder="Insira o nome do produto..." required value="<?php echo $linha["nome"];  ?>">
+                                        <input type="text" name="nome" class="form-control" placeholder="Insira o nome do produto..." required value="<?php echo $nome_produto ?>">
                                     </label>
                                 </div>
                             </div>
@@ -123,7 +139,7 @@
                                 <div class="form-group">
                                     <label class="w-100">
                                         <p class="m-0 mb-2">Quantidade</p>
-                                        <input type="number" min="0" name="quantidade" class="form-control" placeholder="Ex.: 99" required value="<?php echo $linha["quantidade"];  ?>">
+                                        <input type="number" min="0" name="quantidade" class="form-control" placeholder="Ex.: 99" required value="<?php echo $quantidade ?>">
                                     </label>
                                 </div>
                             </div>
@@ -131,7 +147,7 @@
                                 <div class="form-group">
                                     <label class="w-100">
                                         <p class="m-0 mb-2">Preço de custo</p>
-                                        <input type="number" min="0" step=".01" name="preco_custo" class="form-control" placeholder="Ex.: 29.99" required value="<?php echo $linha["preco_custo"];  ?>">
+                                        <input type="number" min="0" step=".01" name="preco_custo" class="form-control" placeholder="Ex.: 29.99" required value="<?php echo $preco_custo ?>">
                                     </label>
                                 </div>
                             </div>
@@ -139,7 +155,7 @@
                                 <div class="form-group">
                                     <label class="w-100">
                                         <p class="m-0 mb-2">Preço de venda</p>
-                                        <input type="number" min="0" step=".01" name="preco_venda" class="form-control" placeholder="Ex.: 29.99" required value="<?php echo $linha["preco_venda"];  ?>">
+                                        <input type="number" min="0" step=".01" name="preco_venda" class="form-control" placeholder="Ex.: 29.99" required value="<?php echo $preco_venda ?>">
                                     </label>
                                 </div>
                             </div>
@@ -149,7 +165,7 @@
                     <div class="form-group mb-3">
                         <label class="w-100">
                             <p class="m-0 mb-2">Descrição</p>
-                            <textarea name="descricao" class="form-control" style="resize: none; min-height: 150px" placeholder="Insira a descrição do produto" required><?php echo $linha["descricao"];  ?></textarea>
+                            <textarea name="descricao" class="form-control" style="resize: none; min-height: 150px" placeholder="Insira a descrição do produto" required><?php echo $descricao ?></textarea>
                         </label>
                     </div>
                     <div class="d-flex gap-3 align-items-end">
@@ -163,9 +179,11 @@
 
                         }
                     } else {
+						
                         $msg = "<div class='alert alert-danger'>
                                     Produto não cadastrado. <a href='atualizacao.php'>Voltar</a>
                                 </div>";
+								
                     }
                 }
 
