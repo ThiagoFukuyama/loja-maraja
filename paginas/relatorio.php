@@ -36,7 +36,7 @@
 		
 		$dompdf->loadHtml("<h1 style='font-family: sans-serif'>Relatório de Produtos</h1>" . $html);
 		
-		$dompdf->setPaper('A4', 'landscape');
+		$dompdf->setPaper('A4', 'portrait');
 
 		$dompdf->render();
 		
