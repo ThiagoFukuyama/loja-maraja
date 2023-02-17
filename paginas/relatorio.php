@@ -1,7 +1,7 @@
 ﻿<?php
 
     require_once "../assets/include/conexao.php";
-	require_once "../assets/lib/dompdf/autoload.inc.php";
+	require_once "../vendor/autoload.php";
 
     $html = "<table cellpadding='3' style='font-family: sans-serif'>
 				<thead>
@@ -32,10 +32,12 @@
 		
 		use Dompdf\Dompdf;
 		
-		$dompdf = new DOMPDF();
+		$dompdf = new Dompdf();
 		
-		$dompdf->load_html("<h1 style='font-family: sans-serif'>Relatório de Produtos</h1>" . $html);
+		$dompdf->loadHtml("<h1 style='font-family: sans-serif'>Relatório de Produtos</h1>" . $html);
 		
+		$dompdf->setPaper('A4', 'landscape');
+
 		$dompdf->render();
 		
 		$dompdf->stream(

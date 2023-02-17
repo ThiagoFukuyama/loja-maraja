@@ -12,7 +12,6 @@
 		$sql = "SELECT * FROM produtos WHERE nome LIKE ?";
 		
 		mysqli_stmt_prepare($stmt, $sql);
-		
 		mysqli_stmt_bind_param($stmt, "s", $nome);
 		
 	} else {
@@ -24,7 +23,6 @@
 	}
 	
 	mysqli_stmt_execute($stmt);
-		
 	mysqli_stmt_bind_result($stmt, $cod_produto, $nome_produto, $quantidade, $preco_custo, $preco_venda, $descricao);
 	
 ?>

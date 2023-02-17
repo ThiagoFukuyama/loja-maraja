@@ -11,13 +11,10 @@
         $sql = "SELECT * FROM produtos WHERE cod_produto = ?";
 		
 		mysqli_stmt_prepare($stmt, $sql);
-		
 		mysqli_stmt_bind_param($stmt, "s", $codigo);
-
         mysqli_stmt_execute($stmt);
-		
+
 		mysqli_stmt_store_result($stmt);
-		
         $num_rows = mysqli_stmt_num_rows($stmt);
 
         if ($num_rows > 0) {
@@ -25,9 +22,7 @@
             $delete = "DELETE FROM produtos WHERE cod_produto = ?";
 			
 			mysqli_stmt_prepare($stmt, $delete);
-		
 			mysqli_stmt_bind_param($stmt, "s", $codigo);
-			
             $result_delete = mysqli_stmt_execute($stmt);
 
             if ($result_delete) {

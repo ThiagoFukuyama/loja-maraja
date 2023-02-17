@@ -20,11 +20,8 @@
                     WHERE cod_produto = ?";
 					
 			$stmt = mysqli_stmt_init($conexao);
-			
-			mysqli_stmt_prepare($stmt, $sql);
-			
+			mysqli_stmt_prepare($stmt, $sql);	
 			mysqli_stmt_bind_param($stmt, "siddsi", $nome, $quantidade, $preco_custo, $preco_venda, $descricao, $codigo);
-
             $update = mysqli_stmt_execute($stmt);
 
             if ($update) {
@@ -94,13 +91,10 @@
                     $select = "SELECT * FROM produtos WHERE cod_produto = ?";
 					
 					mysqli_stmt_prepare($stmt, $select);
-					
 					mysqli_stmt_bind_param($stmt, "s", $codigo);
-
                     $result = mysqli_stmt_execute($stmt);
-					
+			
 					mysqli_stmt_store_result($stmt);
-		
 					$num_rows = mysqli_stmt_num_rows($stmt);
 
                     if ($num_rows > 0) {

@@ -1,0 +1,19 @@
+{
+    "name": "thiagofukuyama/loja-maraja",
+    "description": "Sistema de gerenciamento de produtos em PHP realizado como projeto final de bimestre do curso ETIM Informática para Internet",
+    "minimum-stability": "stable",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Thiago Fukuyama Marcilli",
+            "email": "thiagofkm@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "config": {
+        "vendor-dir": "vendor"
+    },
+    "require": {
+        "dompdf/dompdf": "^2.0"
+    }
+}

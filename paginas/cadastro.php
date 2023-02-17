@@ -15,9 +15,7 @@
         $sql = "INSERT INTO produtos VALUES (NULL, ?, ?, ?, ?, ?)";
 				
 		mysqli_stmt_prepare($stmt, $sql);
-		
 		mysqli_stmt_bind_param($stmt, "sssss", $nome, $quantidade, $preco_custo, $preco_venda, $descricao);
-
         $result = mysqli_stmt_execute($stmt);
 
         if ($result) {
