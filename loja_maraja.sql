@@ -20,7 +20,8 @@ SET time_zone = "+00:00";
 -- Banco de Dados: `loja_maraja`
 --
 
-CREATE DATABASE loja_maraja;
+CREATE DATABASE loja_maraja DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci;
+USE `loja_maraja`;
 
 -- --------------------------------------------------------
 
@@ -43,11 +44,11 @@ CREATE TABLE IF NOT EXISTS `produtos` (
 --
 
 INSERT INTO `produtos` (`cod_produto`, `nome`, `quantidade`, `preco_custo`, `preco_venda`, `descricao`) VALUES
-(1, 'Tijolo MarajÃ¡', 530, 1, 1.99, 'Tijolo de cerÃ¢mica reforÃ§ado MarajÃ¡'),
+(1, 'Tijolo Marajá', 530, 1, 1.99, 'Tijolo de cerâmica reforçado Marajá'),
 (2, 'Tinta Boombril', 450, 45.9, 54.9, 'Tinta impermeabilizante para obra residencial\r\n '),
-(3, 'TÃ¡bua', 170, 60.98, 79.98, 'TÃ¡bua 30cm X 3m para construÃ§Ã£o civil'),
-(4, 'Argamassa SÃ£o TomÃ©', 159, 13.79, 18.99, 'Argamassa especial ultraflexÃ­vel para piso e construÃ§Ã£o'),
-(5, 'Escada articulada', 105, 399.99, 529.9, 'Escada articulada multifuncional de alumÃ­nio com 12 degraus');
+(3, 'Tábua', 170, 60.98, 79.98, 'Tábua 30cm X 3m para construção civil'),
+(4, 'Argamassa São Tomé', 159, 13.79, 18.99, 'Argamassa especial ultraflexível para piso e construção'),
+(5, 'Escada articulada', 105, 399.99, 529.9, 'Escada articulada multifuncional de alumínio com 12 degraus');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
